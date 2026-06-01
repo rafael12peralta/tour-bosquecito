@@ -591,4 +591,22 @@
 
 	</scene>
 
+	<!-- ══ ESCENA 13 ══ -->
+	<scene name="scene_Bosquecito-13" title="Bosquecito-13" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-13.tiles/thumb.jpg" lat="18.48777778" lng="-69.96416667" alt="19.90" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-13.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-13.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-13.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12);" />
+
+	</scene>
+
 </krpano>
