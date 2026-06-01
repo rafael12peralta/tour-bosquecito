@@ -1,0 +1,594 @@
+﻿<krpano version="1.21" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+	<include url="skin/anihotspots.xml"/>
+
+	<skin_settings maps="true" maps_type="google" maps_bing_api_key="" maps_google_api_key="" maps_zoombuttons="false" maps_loadonfirstuse="true" gyro="true" gyro_keeplookingdirection="false" webvr="true" webvr_keeplookingdirection="true" webvr_prev_next_hotspots="true" autotour="false" littleplanetintro="false" followmousecontrol="false" title="true" thumbs="true" thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160" thumbs_opened="false" thumbs_text="false" thumbs_dragging="true" thumbs_onhoverscrolling="false" thumbs_scrollbuttons="false" thumbs_scrollindicator="false" thumbs_loop="false" tooltips_buttons="false" tooltips_thumbs="false" tooltips_hotspots="false" tooltips_mapspots="false" deeplinking="false" loadscene_flags="MERGE" loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)" loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)" loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)" loadingtext="" layout_width="100%" layout_maxwidth="814" controlbar_width="-24" controlbar_height="40" controlbar_offset="20" controlbar_offset_closed="-40" controlbar_overlap.no-fractionalscaling="10" controlbar_overlap.fractionalscaling="0" design_skin_images="vtourskin.png" design_bgcolor="0x1A2E1A" design_bgalpha="0.88" design_bgborder="0" design_bgroundedge="2" design_bgshadow="0 4 14 0x000000 0.4" design_thumbborder_bgborder="3 0xA8C896 1.0" design_thumbborder_padding="2" design_thumbborder_bgroundedge="0" design_text_css="color:#E8F0E8; font-family:Georgia, serif;" design_text_shadow="1" />
+
+
+	<!-- ═══════════════════════════════════════
+	     INTRO — overlay con logo + guía de entrada
+	     Archivos necesarios:
+	       skin/logo.png           → logo INTEC
+	       skin/help_desktop.png   → "haz click para ingresar"
+	     Para cambiar la imagen de presentación del pano,
+	     edita SOLO el atributo url del hotspot "intro_imagen" en scene_Bosquecito-01:
+	       url="recursos/TU_IMAGEN_AQUI.png"
+	═══════════════════════════════════════ -->
+
+	<layer name="intro"
+		type="container" keep="true"
+		width="100%" height="100%"
+		bgcolor="0x000000" bgalpha="0.80"
+		zorder="9999" enabled="true" bgcapture="true"
+		onloaded="on_intro_loaded();"
+		onclick="on_intro_click();">
+
+		<layer name="intro_logo"
+			url="skin/logo.png"
+			align="center" y="-70" scale="0.2"
+			enabled="false" alpha="0" />
+
+		<layer name="intro_guide"
+			url="skin/help_desktop.png"
+			align="center" y="80" scale="1"
+			enabled="false" alpha="0" />
+
+	</layer>
+
+
+	<!-- ═══════════════════════════════════════
+	     ACCIONES DE LA INTRO
+	═══════════════════════════════════════ -->
+
+	<action name="on_intro_loaded">
+		set(hotspot[spot_nav_1].visible, false);
+		delayedcall(2,
+			tween(layer[intro_logo].alpha,  1, 1.2);
+			tween(layer[intro_guide].alpha, 1, 1.2);
+		);
+	</action>
+
+	<action name="on_intro_click">
+		tween(layer[intro].alpha, 0, 0.8);
+		set(layer[intro].enabled, false);
+		set(hotspot[intro_imagen].visible, true);
+		tween(hotspot[intro_imagen].alpha, 1, 1.0);
+		set(hotspot[spot_nav_1].visible, true);
+	</action>
+
+	<action name="on_intro_imagen_click">
+		tween(hotspot[intro_imagen].alpha, 0, 0.8);
+		delayedcall(0.85, set(hotspot[intro_imagen].visible, false));
+	</action>
+
+
+	<!-- ═══════════════════════════════════════
+	     ESTILO HOTSPOT PLANTA
+	═══════════════════════════════════════ -->
+
+	<style name="hotspot_planta"
+		url="skin/animatedhotspot_white.png"
+		scale="0.65" distorted="false" zorder="5"
+		tooltip="Ver planta"
+		onloaded="do_crop_animation(64,64,60);"
+		onover="tween(scale,0.78,0.15,easeOutBack);"
+		onout="tween(scale,0.65,0.15,easeInOut);" />
+
+
+	<!-- ═══════════════════════════════════════
+	     VARIABLES Y ACCIONES DEL CARRUSEL
+	═══════════════════════════════════════ -->
+
+	<data name="carrusel" idx="1" total="1" />
+
+	<action name="carrusel_update">
+		set(layer[carrusel_img_1].visible, false);
+		set(layer[carrusel_img_2].visible, false);
+		set(layer[carrusel_img_3].visible, false);
+		txtadd(currentimg, 'carrusel_img_', get(carrusel.idx));
+		set(layer[get(currentimg)].visible, true);
+		tween(layer[get(currentimg)].alpha, 1, 0.25, easeOutQuad);
+
+		set(layer[dot_1].bgalpha, 0.28);
+		set(layer[dot_2].bgalpha, 0.28);
+		set(layer[dot_3].bgalpha, 0.28);
+		set(layer[dot_%get(carrusel.idx)].bgalpha, 1.0);
+
+		set(layer[dot_1].visible, false);
+		set(layer[dot_2].visible, false);
+		set(layer[dot_3].visible, false);
+		if(carrusel.total GE 1, set(layer[dot_1].visible, true));
+		if(carrusel.total GE 2, set(layer[dot_2].visible, true));
+		if(carrusel.total GE 3, set(layer[dot_3].visible, true));
+
+		if(carrusel.total GT 1,
+			set(layer[carrusel_prev].visible, true);
+			set(layer[carrusel_next].visible, true);
+		,
+			set(layer[carrusel_prev].visible, false);
+			set(layer[carrusel_next].visible, false);
+		);
+
+		copy(local_idx, carrusel.idx);
+		copy(local_total, carrusel.total);
+		txtadd(layer[carrusel_counter].html, get(local_idx), ' / ', get(local_total));
+	</action>
+
+	<action name="carrusel_next">
+		txtadd(currentimg, 'carrusel_img_', get(carrusel.idx));
+		tween(layer[get(currentimg)].alpha, 0, 0.18, easeInQuad);
+		inc(carrusel.idx);
+		if(carrusel.idx GT carrusel.total, set(carrusel.idx, 1));
+		delayedcall(0.15, carrusel_update());
+	</action>
+
+	<action name="carrusel_prev">
+		txtadd(currentimg, 'carrusel_img_', get(carrusel.idx));
+		tween(layer[get(currentimg)].alpha, 0, 0.18, easeInQuad);
+		dec(carrusel.idx);
+		if(carrusel.idx LT 1, copy(carrusel.idx, carrusel.total));
+		delayedcall(0.15, carrusel_update());
+	</action>
+
+	<!-- show_planta: %1=título %2=desc %3=total %4=img1 %5=img2 %6=img3 -->
+	<action name="show_planta">
+		set(layer[modal_title].html, %1);
+		set(layer[modal_desc].html,  %2);
+
+		set(carrusel.idx,   1);
+		set(carrusel.total, %3);
+
+		set(layer[carrusel_img_1].url, %4);
+		set(layer[carrusel_img_2].url, %5);
+		set(layer[carrusel_img_3].url, %6);
+
+		set(layer[carrusel_img_1].alpha, 0);
+		set(layer[carrusel_img_2].alpha, 0);
+		set(layer[carrusel_img_3].alpha, 0);
+
+		carrusel_update();
+
+		set(layer[planta_modal].visible, true);
+		set(layer[planta_modal].alpha,   0);
+		set(layer[modal_card].scale,     0.88);
+		set(layer[modal_card].alpha,     0);
+
+		tween(layer[planta_modal].alpha, 1,   0.30, easeOutQuad);
+		tween(layer[modal_card].scale,   1.0, 0.32, easeOutBack);
+		tween(layer[modal_card].alpha,   1,   0.28, easeOutQuad);
+	</action>
+
+	<action name="close_planta">
+		tween(layer[planta_modal].alpha, 0,    0.22, easeInQuad);
+		tween(layer[modal_card].scale,   0.92, 0.20, easeInQuad);
+		tween(layer[modal_card].alpha,   0,    0.20, easeInQuad);
+		delayedcall(0.25, set(layer[planta_modal].visible, false));
+	</action>
+
+
+	<!-- ═══════════════════════════════════════
+	     MODAL CON CARRUSEL
+	═══════════════════════════════════════ -->
+
+	<layer name="planta_modal" type="container" keep="true" visible="false"
+		width="100%" height="100%" align="center"
+		bgcolor="0x0A1A0A" bgalpha="0.62"
+		capture="true" onclick="close_planta();">
+
+		<layer name="modal_card" type="container" align="center"
+			width="860" height="480"
+			width.mobile="94%" height.mobile="80%"
+			bgcolor="0x0E200E" bgalpha="0.88"
+			border="true" bordercolor="0x6B9E5E" borderalpha="0.35"
+			bgroundedge="20" bgshadow="0 16 56 0x000000 0.55"
+			capture="true" onclick="">
+
+			<layer name="card_accent_top" type="container"
+				align="topleft" x="0" y="0" width="100%" height="3"
+				bgcolor="0x7EC86A" bgalpha="0.75" bgroundedge="20" />
+
+			<!-- ZONA CARRUSEL — izquierda 44% -->
+			<layer name="carrusel_zone" type="container"
+				align="left" x="0" y="0" width="44%" height="100%"
+				bgalpha="0" capture="false">
+
+				<layer name="carrusel_img_1" type="image"
+					align="center" width="100%" height="100%"
+					keepaspect="false" bgroundedge="20" alpha="0" visible="false" />
+
+				<layer name="carrusel_img_2" type="image"
+					align="center" width="100%" height="100%"
+					keepaspect="false" bgroundedge="20" alpha="0" visible="false" />
+
+				<layer name="carrusel_img_3" type="image"
+					align="center" width="100%" height="100%"
+					keepaspect="false" bgroundedge="20" alpha="0" visible="false" />
+
+				<layer name="carrusel_prev" type="text" html="&#8249;"
+					align="left" x="8" y="0" width="32" height="52"
+					bgcolor="0x000000" bgalpha="0.38"
+					border="true" bordercolor="0xFFFFFF" borderalpha="0.08" bgroundedge="8"
+					css="color:#C8E8C0; font-size:28px; font-weight:300; text-align:center;"
+					cursor="pointer" visible="false" capture="true"
+					onover="tween(bgalpha,0.60,0.12); tween(scale,1.06,0.12,easeOutBack);"
+					onout="tween(bgalpha,0.38,0.12); tween(scale,1.0,0.12);"
+					onclick="carrusel_prev();" />
+
+				<layer name="carrusel_next" type="text" html="&#8250;"
+					align="right" x="8" y="0" width="32" height="52"
+					bgcolor="0x000000" bgalpha="0.38"
+					border="true" bordercolor="0xFFFFFF" borderalpha="0.08" bgroundedge="8"
+					css="color:#C8E8C0; font-size:28px; font-weight:300; text-align:center;"
+					cursor="pointer" visible="false" capture="true"
+					onover="tween(bgalpha,0.60,0.12); tween(scale,1.06,0.12,easeOutBack);"
+					onout="tween(bgalpha,0.38,0.12); tween(scale,1.0,0.12);"
+					onclick="carrusel_next();" />
+
+				<layer name="dot_1" type="container"
+					align="bottom" x="-18" y="14" width="8" height="8"
+					bgcolor="0x7EC86A" bgalpha="0.28" bgroundedge="4" visible="false" />
+
+				<layer name="dot_2" type="container"
+					align="bottom" x="0" y="14" width="8" height="8"
+					bgcolor="0x7EC86A" bgalpha="0.28" bgroundedge="4" visible="false" />
+
+				<layer name="dot_3" type="container"
+					align="bottom" x="18" y="14" width="8" height="8"
+					bgcolor="0x7EC86A" bgalpha="0.28" bgroundedge="4" visible="false" />
+
+				<layer name="carrusel_counter" type="text"
+					align="bottom" x="0" y="36" autoheight="true"
+					css="color:#6B9E5E; font-family:Georgia,serif; font-size:11px; letter-spacing:1.5px; text-align:center;"
+					html="1 / 1" />
+
+			</layer>
+
+			<!-- PANEL CONTENIDO — derecha 56% -->
+			<layer name="info_panel" type="container"
+				align="right" x="0" y="0" width="56%" height="100%" bgalpha="0">
+
+				<layer name="modal_label" type="text"
+					align="topleft" x="40" y="38" autoheight="true"
+					css="color:#7EC86A; font-family:Georgia,'Times New Roman',serif; font-size:11px; letter-spacing:3.5px;"
+					html="PLANTA DEL BOSQUE" />
+
+				<layer name="modal_title" type="text"
+					align="topleft" x="40" y="62" width="82%" autoheight="true" wordwrap="true"
+					css="color:#E8F5E2; font-family:Georgia,'Times New Roman',serif; font-size:28px; font-weight:bold; line-height:36px;"
+					html="Título" />
+
+				<layer name="modal_divider" type="container"
+					align="topleft" x="40" y="150" width="48" height="2"
+					bgcolor="0x7EC86A" bgalpha="0.65" bgroundedge="1" />
+
+				<layer name="modal_desc" type="text"
+					align="topleft" x="40" y="168" width="80%" autoheight="true" wordwrap="true"
+					css="color:#B8D4B0; font-family:Georgia,'Times New Roman',serif; font-size:15px; line-height:26px;"
+					html="" />
+
+				<layer name="modal_hint" type="text"
+					align="bottomleft" x="40" y="28" autoheight="true"
+					css="color:#4A6E42; font-family:Georgia,serif; font-size:11px; letter-spacing:1px;"
+					html="Toca fuera para cerrar" />
+
+			</layer>
+
+			<layer name="modal_close" type="text" html="&#10005;"
+				align="topright" x="16" y="16" width="34" height="34"
+				bgcolor="0x7EC86A" bgalpha="0.18"
+				border="true" bordercolor="0x7EC86A" borderalpha="0.35" bgroundedge="17"
+				css="color:#A8D898; font-size:17px; font-weight:bold; text-align:center;"
+				cursor="pointer"
+				onover="tween(scale,1.12,0.14,easeOutBack); tween(bgalpha,0.38,0.14);"
+				onout="tween(scale,1.0,0.14,easeInOut); tween(bgalpha,0.18,0.14);"
+				onclick="close_planta();" />
+
+		</layer>
+
+	</layer>
+
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     ESCENAS — nuevas fotos con coordenadas GPS reales
+	     
+	     HOTSPOTS DE NAVEGACIÓN:
+	     Están marcados con TODO — posiciónalos abriendo el tour
+	     en krpano y anotando ath/atv de cada punto de paso.
+	     Formato: ath="X" atv="Y"  (X = horizontal, Y = vertical)
+
+	     HOTSPOTS DE PLANTA:
+	     Mantenidos de la versión anterior con sus fotos y textos.
+	     Ajusta ath/atv cuando cargues el tour.
+	═══════════════════════════════════════════════════════════ -->
+
+
+	<!-- ══ ESCENA 01 ══ -->
+	<scene name="scene_Bosquecito-01" title="Bosquecito-01" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-01.tiles/thumb.jpg" lat="18.48761111" lng="-69.96405556" alt="14.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-01.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-01.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-01.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- Hotspot de navegación — oculto hasta que el usuario cierra la intro -->
+		<!-- TODO: ajusta ath y atv al abrir el tour -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png"
+			onloaded="do_crop_animation(64,64,60);"
+			ath="2" atv="18" depth="900" prealign="true"
+			visible="true"
+			onclick="loadscene(scene_Bosquecito-02);" />
+
+		<!-- ─────────────────────────────────────
+		     IMAGEN DE PRESENTACIÓN en el pano (hotspot 3D)
+		     Para cambiarla reemplaza solo la url:
+		       url="recursos/TU_IMAGEN_AQUI.png"
+		───────────────────────────────────── -->
+		<hotspot name="intro_imagen"
+			type="image"
+			url="recursos/Introduccion_Bosquecito.png"
+			ath="0" atv="0" depth="1800"
+			rx="0" ry="0" rz="0"
+			ox="0.0" oy="0.0" tx="0" ty="0" tz="0"
+			visible="false" alpha="0" distorted="true"
+			onclick="on_intro_imagen_click();" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 02 ══ -->
+	<scene name="scene_Bosquecito-02" title="Bosquecito-02" onstart="lookat(-90, 0, 90)" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-02.tiles/thumb.jpg" lat="18.48766667" lng="-69.96408333" alt="19.20" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-02.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-02.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-02.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03);" />
+
+		<!-- PLANTA 1 — Oreja de Elefante (3 fotos) — TODO: ajusta ath/atv -->
+		<hotspot name="planta1_hotspot" style="hotspot_planta" ath="-75" atv="35" depth="1400"
+			onclick="show_planta(
+				'Oreja de Elefante',
+				'Planta tropical de gran porte reconocida por sus enormes hojas con forma de corazón. Prefiere ambientes húmedos y sombríos, y es ampliamente utilizada como ornamental en jardines tropicales y espacios verdes.',
+				3,
+				'panos/Plantas/oreja-de-elefante-1.JPG',
+				'panos/Plantas/oreja-de-elefante-2.jpg',
+				'panos/Plantas/oreja-de-elefante-3.jpg'
+			);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 03 ══ -->
+	<scene name="scene_Bosquecito-03" title="Bosquecito-03" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-03.tiles/thumb.jpg" lat="18.48763889" lng="-69.96411111" alt="15.90" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-03.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-03.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-03.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 04 ══ -->
+	<scene name="scene_Bosquecito-04" title="Bosquecito-04" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-04.tiles/thumb.jpg" lat="18.48763889" lng="-69.96419444" alt="17.80" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-04.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-04.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-04.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 05 ══ -->
+	<scene name="scene_Bosquecito-05" title="Bosquecito-05" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-05.tiles/thumb.jpg" lat="18.48766667" lng="-69.96411111" alt="15.40" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-05.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-05.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-05.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 06 ══ -->
+	<scene name="scene_Bosquecito-06" title="Bosquecito-06" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-06.tiles/thumb.jpg" lat="18.48777778" lng="-69.96408333" alt="21.10" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-06.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-06.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-06.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv; agrega más spot_nav si hay bifurcaciones -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07);" />
+
+		<!-- PLANTA 2 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
+		<hotspot name="planta2_hotspot" style="hotspot_planta" ath="-108" atv="38" depth="1400"
+			onclick="show_planta(
+				'Planta Arquitectónica 02',
+				'Esta planta incluye espacios administrativos y circulación principal del segundo nivel.',
+				1,
+				'panos/Planta-02.tiles/preview.jpg',
+				'',
+				''
+			);" />
+
+		<!-- PLANTA 3 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
+		<hotspot name="planta3_hotspot" style="hotspot_planta" ath="120" atv="10" depth="1400"
+			onclick="show_planta(
+				'Planta Arquitectónica 03',
+				'Área de integración social y espacios abiertos para actividades múltiples.',
+				1,
+				'panos/Planta-03.tiles/preview.jpg',
+				'',
+				''
+			);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 07 ══ -->
+	<scene name="scene_Bosquecito-07" title="Bosquecito-07" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-07.tiles/thumb.jpg" lat="18.48775000" lng="-69.96411111" alt="4.20" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-07.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-07.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-07.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 08 ══ -->
+	<scene name="scene_Bosquecito-08" title="Bosquecito-08" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-08.tiles/thumb.jpg" lat="18.48775000" lng="-69.96405556" alt="20.00" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-08.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-08.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-08.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 09 ══ -->
+	<scene name="scene_Bosquecito-09" title="Bosquecito-09" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-09.tiles/thumb.jpg" lat="18.48766667" lng="-69.96408333" alt="20.40" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-09.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-09.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-09.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 10 ══ -->
+	<scene name="scene_Bosquecito-10" title="Bosquecito-10" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-10.tiles/thumb.jpg" lat="18.48777778" lng="-69.96408333" alt="18.50" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-10.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-10.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-10.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-11);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 11 ══ -->
+	<scene name="scene_Bosquecito-11" title="Bosquecito-11" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-11.tiles/thumb.jpg" lat="18.48777778" lng="-69.96416667" alt="19.90" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-11.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-11.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-11.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12);" />
+
+	</scene>
+
+
+	<!-- ══ ESCENA 12 ══ -->
+	<scene name="scene_Bosquecito-12" title="Bosquecito-12" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-12.tiles/thumb.jpg" lat="18.48794444" lng="-69.96411111" alt="20.60" heading="0.0">
+		<control bouncinglimits="calc:image.cube ? true : false" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<preview url="panos/Bosquecito-12.tiles/preview.jpg" />
+		<image if="!(webvr.isenabled OR device.mobilevr)">
+			<cube url="panos/Bosquecito-12.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
+		</image>
+		<image if="webvr.isenabled OR device.mobilevr">
+			<cube url="panos/Bosquecito-12.tiles/vr/pano_%s.jpg" />
+		</image>
+
+		<!-- TODO: ajusta ath/atv -->
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-11);" />
+
+		<!-- PLANTA 4 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
+		<hotspot name="planta4_hotspot" style="hotspot_planta" ath="-105" atv="8" depth="1400"
+			onclick="show_planta(
+				'Planta Arquitectónica 04',
+				'Zona técnica y distribución estructural del último nivel del proyecto.',
+				1,
+				'panos/Planta-04.tiles/preview.jpg',
+				'',
+				''
+			);" />
+
+	</scene>
+
+</krpano>
