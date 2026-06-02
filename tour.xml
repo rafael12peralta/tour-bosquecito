@@ -53,7 +53,7 @@
 	     ESTILO HOTSPOT PLANTA
 	═══════════════════════════════════════ -->
 
-	<style name="hotspot_planta" url="skin/animatedhotspot_white.png" scale="0.65" distorted="false" zorder="5" tooltip="Ver planta" onloaded="do_crop_animation(64,64,60);" onover="tween(scale,0.78,0.15,easeOutBack);" onout="tween(scale,0.65,0.15,easeInOut);" />
+	<style name="hotspot_planta" url="recursos/pisada.png" scale="0.65" distorted="false" zorder="5" tooltip="Ver planta" onloaded="" onover="tween(scale,0.78,0.15,easeOutBack);" onout="tween(scale,0.65,0.15,easeInOut);" />
 
 
 	<!-- ═══════════════════════════════════════
@@ -219,8 +219,8 @@
 			<cube url="panos/Bosquecito-01.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="recursos/walk-icon.png" onloaded="" ath="2" atv="18" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-02); lookat(-90, 0, 120);" />
-		<hotspot name="spot_nav_2" url="recursos/walk-icon.png" onloaded="" ath="65" atv="08" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-11); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="2.00" atv="18.00" scale="0.71000000000000" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-02); lookat(-90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="65.00000076170335" scale="0.66500000000000" atv="7.99999918680935" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-11); lookat(-180, 0, 120);" />
 
 		<!-- ─────────────────────────────────────
 		     IMAGEN DE PRESENTACIÓN en el pano (hotspot 3D)
@@ -242,9 +242,9 @@
 			<cube url="panos/Bosquecito-02.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="76" atv="-2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01); lookat(-190, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="142" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03); lookat(114, 0, 120);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-90" atv="18" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="76" atv="-2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01); lookat(-190, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="142" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03); lookat(114, 0, 120);" />
+		<hotspot name="spot_nav_3" url="recursos/pisada.png" onloaded="" ath="-90" atv="18" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
 
 		<!-- PLANTA 1 — Oreja de Elefante (3 fotos) -->
 		<hotspot name="planta1_hotspot" style="hotspot_planta" ath="-75" atv="35" depth="1400" onclick="show_planta(
@@ -271,8 +271,8 @@
 			<cube url="panos/Bosquecito-03.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-30" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02); lookat(90, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="262" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-30" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02); lookat(90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="262" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
 
 	</scene>
 
@@ -289,9 +289,9 @@
 			<cube url="panos/Bosquecito-04.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-150" atv="13" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02); lookat(90, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05); lookat(50, 0, 120);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-95" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03); lookat(114, 0, 120);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-150" atv="13" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02); lookat(90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="0" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05); lookat(50, 0, 120);" />
+		<hotspot name="spot_nav_3" url="recursos/pisada.png" onloaded="" ath="-95" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03); lookat(114, 0, 120);" />
 
 	</scene>
 
@@ -308,8 +308,8 @@
 			<cube url="panos/Bosquecito-05.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-170" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04); lookat(-180, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="94" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-10, 0, 120);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-170" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="94" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-10, 0, 120);" />
 
 	</scene>
 
@@ -326,11 +326,11 @@
 			<cube url="panos/Bosquecito-06.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="205" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05); lookat(-90, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-10" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-75" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08); lookat(180, 0, 120);" />
-		<hotspot name="spot_nav_4" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="55" atv="15" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
-		<hotspot name="spot_nav_5" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="110" atv="15" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="205" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05); lookat(-90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="-10" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07);" />
+		<hotspot name="spot_nav_3" url="recursos/pisada.png" onloaded="" ath="-75" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08); lookat(180, 0, 120);" />
+		<hotspot name="spot_nav_4" url="recursos/pisada.png" onloaded="" ath="55" atv="15" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
+		<hotspot name="spot_nav_5" url="recursos/pisada.png" onloaded="" ath="110" atv="15" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
 
 		<!-- PLANTA 2 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
 		<hotspot name="planta2_hotspot" style="hotspot_planta" ath="-108" atv="38" depth="1400" onclick="show_planta(
@@ -367,9 +367,9 @@
 			<cube url="panos/Bosquecito-07.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="184" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-180, 0, 120);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-85" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08); lookat(180, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="135" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="184" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_3" url="recursos/pisada.png" onloaded="" ath="-85" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08); lookat(180, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="135" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
 
 	</scene>
 
@@ -386,8 +386,8 @@
 			<cube url="panos/Bosquecito-08.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-26" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(90, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="132" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-13);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-26" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="132" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-13);" />
 
 	</scene>
 
@@ -404,10 +404,10 @@
 			<cube url="panos/Bosquecito-09.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-7" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12); lookat(60, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="153" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="210" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-150, 0, 120);" />
-		<hotspot name="spot_nav_4" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-90" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07); lookat(-90, 0, 120);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-7" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12); lookat(60, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="153" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
+		<hotspot name="spot_nav_3" url="recursos/pisada.png" onloaded="" ath="210" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-150, 0, 120);" />
+		<hotspot name="spot_nav_4" url="recursos/pisada.png" onloaded="" ath="-90" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07); lookat(-90, 0, 120);" />
 
 	</scene>
 
@@ -424,8 +424,8 @@
 			<cube url="panos/Bosquecito-10.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-176" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-70, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-5" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-11);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-176" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-70, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="-5" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-11);" />
 
 	</scene>
 
@@ -442,9 +442,9 @@
 			<cube url="panos/Bosquecito-11.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="125" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10); lookat(-180, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-5" atv="2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01); lookat(-107, 0, 120);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-162" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12); lookat(-24, 0, 120);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="125" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="-5" atv="2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01); lookat(-107, 0, 120);" />
+		<hotspot name="spot_nav_3" url="recursos/pisada.png" onloaded="" ath="-162" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12); lookat(-24, 0, 120);" />
 
 	</scene>
 
@@ -461,8 +461,8 @@
 			<cube url="panos/Bosquecito-12.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-148" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-125" atv="2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-148" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/pisada.png" onloaded="" ath="-125" atv="2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07); lookat(-89, 0, 120);" />
 
 		<!-- PLANTA 4 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
 		<hotspot name="planta4_hotspot" style="hotspot_planta" ath="-105" atv="8" depth="1400" onclick="show_planta(
@@ -488,7 +488,7 @@
 			<cube url="panos/Bosquecito-13.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-40" atv="-4" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08);" />
+		<hotspot name="spot_nav_1" url="recursos/pisada.png" onloaded="" ath="-40" atv="-4" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08);" />
 
 	</scene>
 
