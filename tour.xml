@@ -3,18 +3,15 @@
 	<include url="skin/vtourskin.xml" />
 	<include url="skin/anihotspots.xml"/>
 
+	<plugin name="toolbox" url="plugins/toolbox/toolboxV2.js" preload="true" keep="true" />
+
 	<skin_settings maps="true" maps_type="google" maps_bing_api_key="" maps_google_api_key="" maps_zoombuttons="false" maps_loadonfirstuse="true" gyro="true" gyro_keeplookingdirection="false" webvr="true" webvr_keeplookingdirection="true" webvr_prev_next_hotspots="true" autotour="false" littleplanetintro="false" followmousecontrol="false" title="true" thumbs="true" thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160" thumbs_opened="false" thumbs_text="false" thumbs_dragging="true" thumbs_onhoverscrolling="false" thumbs_scrollbuttons="false" thumbs_scrollindicator="false" thumbs_loop="false" tooltips_buttons="false" tooltips_thumbs="false" tooltips_hotspots="false" tooltips_mapspots="false" deeplinking="false" loadscene_flags="MERGE" loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)" loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)" loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)" loadingtext="" layout_width="100%" layout_maxwidth="814" controlbar_width="-24" controlbar_height="40" controlbar_offset="20" controlbar_offset_closed="-40" controlbar_overlap.no-fractionalscaling="10" controlbar_overlap.fractionalscaling="0" design_skin_images="vtourskin.png" design_bgcolor="0x1A2E1A" design_bgalpha="0.88" design_bgborder="0" design_bgroundedge="2" design_bgshadow="0 4 14 0x000000 0.4" design_thumbborder_bgborder="3 0xA8C896 1.0" design_thumbborder_padding="2" design_thumbborder_bgroundedge="0" design_text_css="color:#E8F0E8; font-family:Georgia, serif;" design_text_shadow="1" />
 
 	<!--TODO: 
 	- Linked scene lookat-->
 
 	<!-- ═══════════════════════════════════════
-	     INTRO — overlay con logo + guía de entrada
-	     Archivos necesarios:
-	       skin/logo.png           → logo INTEC
-	       skin/help_desktop.png   → "haz click para ingresar"
-	     Para cambiar la imagen de presentación del pano,
-	     edita SOLO el atributo url del hotspot "intro_imagen" en scene_Bosquecito-01: url="recursos/TU_IMAGEN_AQUI.png"
+	     INTRO
 	═══════════════════════════════════════ -->
 
 	<layer name="intro" type="container" keep="true" width="100%" height="100%" bgcolor="0x000000" bgalpha="0.80" zorder="9999" enabled="true" bgcapture="true" onloaded="on_intro_loaded();" onclick="on_intro_click();">
@@ -222,8 +219,8 @@
 			<cube url="panos/Bosquecito-01.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="2" atv="18" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-02);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="65" atv="08" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-11);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="2" atv="18" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-02); lookat(-90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="65" atv="08" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-11); lookat(-180, 0, 120);" />
 
 		<!-- ─────────────────────────────────────
 		     IMAGEN DE PRESENTACIÓN en el pano (hotspot 3D)
@@ -234,7 +231,7 @@
 
 
 	<!-- ══ ESCENA 02 ══ -->
-	<scene name="scene_Bosquecito-02" title="Bosquecito-02" onstart="lookat(-90, 0, 120)" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-02.tiles/thumb.jpg" lat="18.48766667" lng="-69.96408333" alt="19.20" heading="0.0">
+	<scene name="scene_Bosquecito-02" title="Bosquecito-02" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-02.tiles/thumb.jpg" lat="18.48766667" lng="-69.96408333" alt="19.20" heading="0.0">
 		<control bouncinglimits="calc:image.cube ? true : false" />
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/Bosquecito-02.tiles/preview.jpg" />
@@ -245,8 +242,8 @@
 			<cube url="panos/Bosquecito-02.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="76" atv="-2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="142" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="76" atv="-2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01); lookat(-190, 0, 120);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="142" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03); lookat(114, 0, 120);" />
 		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-90" atv="18" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
 
 		<!-- PLANTA 1 — Oreja de Elefante (3 fotos) -->
@@ -265,7 +262,7 @@
 	<!-- ══ ESCENA 03 ══ -->
 	<scene name="scene_Bosquecito-03" title="Bosquecito-03" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-03.tiles/thumb.jpg" lat="18.48763889" lng="-69.96411111" alt="15.90" heading="0.0">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="114" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/Bosquecito-03.tiles/preview.jpg" />
 		<image if="!(webvr.isenabled OR device.mobilevr)">
 			<cube url="panos/Bosquecito-03.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
@@ -274,7 +271,7 @@
 			<cube url="panos/Bosquecito-03.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-30" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-30" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02); lookat(90, 0, 120);" />
 		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="262" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
 
 	</scene>
@@ -292,8 +289,9 @@
 			<cube url="panos/Bosquecito-04.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-150" atv="13" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-150" atv="13" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-02); lookat(90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="0" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05); lookat(50, 0, 120);" />
+		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-95" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03); lookat(114, 0, 120);" />
 
 	</scene>
 
@@ -301,7 +299,7 @@
 	<!-- ══ ESCENA 05 ══ -->
 	<scene name="scene_Bosquecito-05" title="Bosquecito-05" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-05.tiles/thumb.jpg" lat="18.48766667" lng="-69.96411111" alt="15.40" heading="0.0">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="50" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/Bosquecito-05.tiles/preview.jpg" />
 		<image if="!(webvr.isenabled OR device.mobilevr)">
 			<cube url="panos/Bosquecito-05.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
@@ -310,8 +308,8 @@
 			<cube url="panos/Bosquecito-05.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-170" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="94" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-170" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="94" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-10, 0, 120);" />
 
 	</scene>
 
@@ -319,7 +317,7 @@
 	<!-- ══ ESCENA 06 ══ -->
 	<scene name="scene_Bosquecito-06" title="Bosquecito-06" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-06.tiles/thumb.jpg" lat="18.48777778" lng="-69.96408333" alt="21.10" heading="0.0">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="-10" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/Bosquecito-06.tiles/preview.jpg" />
 		<image if="!(webvr.isenabled OR device.mobilevr)">
 			<cube url="panos/Bosquecito-06.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
@@ -328,9 +326,9 @@
 			<cube url="panos/Bosquecito-06.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="205" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="205" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-05); lookat(-90, 0, 120);" />
 		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-10" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-75" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08);" />
+		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-75" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08); lookat(180, 0, 120);" />
 		<hotspot name="spot_nav_4" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="55" atv="15" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
 		<hotspot name="spot_nav_5" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="110" atv="15" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
 
@@ -369,8 +367,8 @@
 			<cube url="panos/Bosquecito-07.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="184" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-85" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="184" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-85" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08); lookat(180, 0, 120);" />
 		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="135" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09);" />
 
 	</scene>
@@ -379,7 +377,7 @@
 	<!-- ══ ESCENA 08 ══ -->
 	<scene name="scene_Bosquecito-08" title="Bosquecito-08" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-08.tiles/thumb.jpg" lat="18.48775000" lng="-69.96405556" alt="20.00" heading="0.0">
 		<control bouncinglimits="calc:image.cube ? true : false" />
-		<view hlookat="180" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 		<preview url="panos/Bosquecito-08.tiles/preview.jpg" />
 		<image if="!(webvr.isenabled OR device.mobilevr)">
 			<cube url="panos/Bosquecito-08.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,1024,2048,3840" />
@@ -388,7 +386,7 @@
 			<cube url="panos/Bosquecito-08.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-26" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-26" atv="8" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(90, 0, 120);" />
 		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="132" atv="12" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-13);" />
 
 	</scene>
@@ -406,10 +404,10 @@
 			<cube url="panos/Bosquecito-09.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-7" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-7" atv="6" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12); lookat(60, 0, 120);" />
 		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="153" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="210" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06);" />
-		<hotspot name="spot_nav_4" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-90" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07);" />
+		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="210" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-150, 0, 120);" />
+		<hotspot name="spot_nav_4" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-90" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07); lookat(-90, 0, 120);" />
 
 	</scene>
 
@@ -426,7 +424,7 @@
 			<cube url="panos/Bosquecito-10.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-176" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-176" atv="10" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06); lookat(-70, 0, 120);" />
 		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-5" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-11);" />
 
 	</scene>
@@ -444,7 +442,7 @@
 			<cube url="panos/Bosquecito-11.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="125" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10);" />
+		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="125" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10); lookat(-180, 0, 120);" />
 		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-5" atv="2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01);" />
 		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-162" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12);" />
 
