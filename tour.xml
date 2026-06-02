@@ -219,8 +219,8 @@
 			<cube url="panos/Bosquecito-01.tiles/vr/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="2" atv="18" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-02); lookat(-90, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="65" atv="08" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-11); lookat(-180, 0, 120);" />
+		<hotspot name="spot_nav_1" url="recursos/walk-icon.png" onloaded="" ath="2" atv="18" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-02); lookat(-90, 0, 120);" />
+		<hotspot name="spot_nav_2" url="recursos/walk-icon.png" onloaded="" ath="65" atv="08" depth="900" prealign="true" visible="true" onclick="loadscene(scene_Bosquecito-11); lookat(-180, 0, 120);" />
 
 		<!-- ─────────────────────────────────────
 		     IMAGEN DE PRESENTACIÓN en el pano (hotspot 3D)
@@ -443,8 +443,8 @@
 		</image>
 
 		<hotspot name="spot_nav_1" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="125" atv="14" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10); lookat(-180, 0, 120);" />
-		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-5" atv="2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01);" />
-		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-162" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12);" />
+		<hotspot name="spot_nav_2" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-5" atv="2" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-01); lookat(-107, 0, 120);" />
+		<hotspot name="spot_nav_3" url="skin/animatedhotspot_white.png" onloaded="do_crop_animation(64,64,60);" ath="-162" atv="5" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-12); lookat(-24, 0, 120);" />
 
 	</scene>
 
