@@ -47,14 +47,6 @@
 		set(hotspot[spot_nav_2].visible, true);
 	</action>
 
-
-	<!-- ═══════════════════════════════════════
-	     ESTILO HOTSPOT PLANTA
-	═══════════════════════════════════════ -->
-
-	<style name="hotspot_planta" url="recursos/pisada.png" scale="0.65" distorted="false" zorder="5" tooltip="Ver planta" onloaded="" onover="tween(scale,0.78,0.15,easeOutBack);" onout="tween(scale,0.65,0.15,easeInOut);" />
-
-
 	<!-- ═══════════════════════════════════════
 	     VARIABLES Y ACCIONES DEL CARRUSEL
 	═══════════════════════════════════════ -->
@@ -246,7 +238,7 @@
 		<hotspot name="spot_nav_3" style="pisada" url="recursos/pisada.png" onloaded="" ath="-71.94615062482404" atv="12.09415817743351" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04, null,MERGE,BLEND(0.5));" />
 
 		<!-- PLANTA 1 — Oreja de Elefante (3 fotos) -->
-		<hotspot name="planta1_hotspot" style="hotspot_planta" ath="-75" atv="35" depth="1400" onclick="show_planta(
+		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.20538047991957" atv="8.10578772554134" scale="0.15000000000000" depth="900" onclick="show_planta(
 				'Oreja de Elefante',
 				'Planta tropical de gran porte reconocida por sus enormes hojas con forma de corazón. Prefiere ambientes húmedos y sombríos, y es ampliamente utilizada como ornamental en jardines tropicales y espacios verdes.',
 				3,
@@ -332,7 +324,7 @@
 		<hotspot name="spot_nav_5" style="pisada" url="recursos/pisada.png" onloaded="" ath="109.74309858972711" atv="13.43430756805343" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10, null,MERGE,BLEND(0.5));" />
 
 		<!-- PLANTA 2 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta2_hotspot" style="hotspot_planta" ath="-108" atv="38" depth="1400" onclick="show_planta(
+		<hotspot name="planta2_hotspot" style="info_planta" url="recursos/lupa.png" ath="76.91106922084793" atv="12.19733301675450" scale="0.08500000000000" depth="900" onclick="show_planta(
 				'Planta Arquitectónica 02',
 				'Esta planta incluye espacios administrativos y circulación principal del segundo nivel.',
 				1,
@@ -342,7 +334,7 @@
 			);" />
 
 		<!-- PLANTA 3 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta3_hotspot" style="hotspot_planta" ath="120" atv="10" depth="1400" onclick="show_planta(
+		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png" ath="144.56725044663420" atv="-0.73954589520294" scale="0.09500000000000" depth="900" onclick="show_planta(
 				'Planta Arquitectónica 03',
 				'Área de integración social y espacios abiertos para actividades múltiples.',
 				1,
@@ -464,7 +456,7 @@
 		<hotspot name="spot_nav_2" style="pisada" url="recursos/pisada.png" onloaded="" ath="-123.70809473880163" atv="0.25330352844481" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07, null,MERGE,BLEND(0.5)); lookat(-89, 0, 120);" />
 
 		<!-- PLANTA 4 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta4_hotspot" style="hotspot_planta" ath="-105" atv="8" depth="1400" onclick="show_planta(
+		<hotspot name="planta4_hotspot" style="pisada" ath="-105" atv="8" depth="1400" onclick="show_planta(
 				'Planta Arquitectónica 04',
 				'Zona técnica y distribución estructural del último nivel del proyecto.',
 				1,
