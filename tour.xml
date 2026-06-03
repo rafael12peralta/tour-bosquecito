@@ -47,156 +47,10 @@
 		set(hotspot[spot_nav_2].visible, true);
 	</action>
 
-	<!-- ═══════════════════════════════════════
-	     VARIABLES Y ACCIONES DEL CARRUSEL
-	═══════════════════════════════════════ -->
-
-	<data name="carrusel" idx="1" total="1" />
-
-	<action name="carrusel_update">
-		set(layer[carrusel_img_1].visible, false);
-		set(layer[carrusel_img_2].visible, false);
-		set(layer[carrusel_img_3].visible, false);
-		txtadd(currentimg, 'carrusel_img_', get(carrusel.idx));
-		set(layer[get(currentimg)].visible, true);
-		tween(layer[get(currentimg)].alpha, 1, 0.25, easeOutQuad);
-
-		set(layer[dot_1].bgalpha, 0.28);
-		set(layer[dot_2].bgalpha, 0.28);
-		set(layer[dot_3].bgalpha, 0.28);
-		set(layer[dot_%get(carrusel.idx)].bgalpha, 1.0);
-
-		set(layer[dot_1].visible, false);
-		set(layer[dot_2].visible, false);
-		set(layer[dot_3].visible, false);
-		if(carrusel.total GE 1, set(layer[dot_1].visible, true));
-		if(carrusel.total GE 2, set(layer[dot_2].visible, true));
-		if(carrusel.total GE 3, set(layer[dot_3].visible, true));
-
-		if(carrusel.total GT 1,
-			set(layer[carrusel_prev].visible, true);
-			set(layer[carrusel_next].visible, true);
-		,
-			set(layer[carrusel_prev].visible, false);
-			set(layer[carrusel_next].visible, false);
-		);
-
-		copy(local_idx, carrusel.idx);
-		copy(local_total, carrusel.total);
-		txtadd(layer[carrusel_counter].html, get(local_idx), ' / ', get(local_total));
-	</action>
-
-	<action name="carrusel_next">
-		txtadd(currentimg, 'carrusel_img_', get(carrusel.idx));
-		tween(layer[get(currentimg)].alpha, 0, 0.18, easeInQuad);
-		inc(carrusel.idx);
-		if(carrusel.idx GT carrusel.total, set(carrusel.idx, 1));
-		delayedcall(0.15, carrusel_update());
-	</action>
-
-	<action name="carrusel_prev">
-		txtadd(currentimg, 'carrusel_img_', get(carrusel.idx));
-		tween(layer[get(currentimg)].alpha, 0, 0.18, easeInQuad);
-		dec(carrusel.idx);
-		if(carrusel.idx LT 1, copy(carrusel.idx, carrusel.total));
-		delayedcall(0.15, carrusel_update());
-	</action>
-
-	<!-- show_planta: %1=título %2=desc %3=total %4=img1 %5=img2 %6=img3 -->
-	<action name="show_planta">
-		set(layer[modal_title].html, %1);
-		set(layer[modal_desc].html,  %2);
-
-		set(carrusel.idx,   1);
-		set(carrusel.total, %3);
-
-		set(layer[carrusel_img_1].url, %4);
-		set(layer[carrusel_img_2].url, %5);
-		set(layer[carrusel_img_3].url, %6);
-
-		set(layer[carrusel_img_1].alpha, 0);
-		set(layer[carrusel_img_2].alpha, 0);
-		set(layer[carrusel_img_3].alpha, 0);
-
-		carrusel_update();
-
-		set(layer[planta_modal].visible, true);
-		set(layer[planta_modal].alpha,   0);
-		set(layer[modal_card].scale,     0.88);
-		set(layer[modal_card].alpha,     0);
-
-		tween(layer[planta_modal].alpha, 1,   0.30, easeOutQuad);
-		tween(layer[modal_card].scale,   1.0, 0.32, easeOutBack);
-		tween(layer[modal_card].alpha,   1,   0.28, easeOutQuad);
-	</action>
-
-	<action name="close_planta">
-		tween(layer[planta_modal].alpha, 0,    0.22, easeInQuad);
-		tween(layer[modal_card].scale,   0.92, 0.20, easeInQuad);
-		tween(layer[modal_card].alpha,   0,    0.20, easeInQuad);
-		delayedcall(0.25, set(layer[planta_modal].visible, false));
-	</action>
-
-
-	<!-- ═══════════════════════════════════════
-	     MODAL CON CARRUSEL
-	═══════════════════════════════════════ -->
-
-	<layer name="planta_modal" type="container" keep="true" visible="false" width="100%" height="100%" align="center" bgcolor="0x0A1A0A" bgalpha="0.62" capture="true" onclick="close_planta();">
-
-		<layer name="modal_card" type="container" align="center" width="860" height="480" width.mobile="94%" height.mobile="80%" bgcolor="0x0E200E" bgalpha="0.88" border="true" bordercolor="0x6B9E5E" borderalpha="0.35" bgroundedge="20" bgshadow="0 16 56 0x000000 0.55" capture="true" onclick="">
-
-			<layer name="card_accent_top" type="container" align="topleft" x="0" y="0" width="100%" height="3" bgcolor="0x7EC86A" bgalpha="0.75" bgroundedge="20" />
-
-			<!-- ZONA CARRUSEL — izquierda 44% -->
-			<layer name="carrusel_zone" type="container" align="left" x="0" y="0" width="44%" height="100%" bgalpha="0" capture="false">
-
-				<layer name="carrusel_img_1" type="image" align="center" width="100%" height="100%" keepaspect="false" bgroundedge="20" alpha="0" visible="false" />
-
-				<layer name="carrusel_img_2" type="image" align="center" width="100%" height="100%" keepaspect="false" bgroundedge="20" alpha="0" visible="false" />
-
-				<layer name="carrusel_img_3" type="image" align="center" width="100%" height="100%" keepaspect="false" bgroundedge="20" alpha="0" visible="false" />
-
-				<layer name="carrusel_prev" type="text" html="&#8249;" align="left" x="8" y="0" width="32" height="52" bgcolor="0x000000" bgalpha="0.38" border="true" bordercolor="0xFFFFFF" borderalpha="0.08" bgroundedge="8" css="color:#C8E8C0; font-size:28px; font-weight:300; text-align:center;" cursor="pointer" visible="false" capture="true" onover="tween(bgalpha,0.60,0.12); tween(scale,1.06,0.12,easeOutBack);" onout="tween(bgalpha,0.38,0.12); tween(scale,1.0,0.12);" onclick="carrusel_prev();" />
-
-				<layer name="carrusel_next" type="text" html="&#8250;" align="right" x="8" y="0" width="32" height="52" bgcolor="0x000000" bgalpha="0.38" border="true" bordercolor="0xFFFFFF" borderalpha="0.08" bgroundedge="8" css="color:#C8E8C0; font-size:28px; font-weight:300; text-align:center;" cursor="pointer" visible="false" capture="true" onover="tween(bgalpha,0.60,0.12); tween(scale,1.06,0.12,easeOutBack);" onout="tween(bgalpha,0.38,0.12); tween(scale,1.0,0.12);" onclick="carrusel_next();" />
-
-				<layer name="dot_1" type="container" align="bottom" x="-18" y="14" width="8" height="8" bgcolor="0x7EC86A" bgalpha="0.28" bgroundedge="4" visible="false" />
-
-				<layer name="dot_2" type="container" align="bottom" x="0" y="14" width="8" height="8" bgcolor="0x7EC86A" bgalpha="0.28" bgroundedge="4" visible="false" />
-
-				<layer name="dot_3" type="container" align="bottom" x="18" y="14" width="8" height="8" bgcolor="0x7EC86A" bgalpha="0.28" bgroundedge="4" visible="false" />
-
-				<layer name="carrusel_counter" type="text" align="bottom" x="0" y="36" autoheight="true" css="color:#6B9E5E; font-family:Georgia,serif; font-size:11px; letter-spacing:1.5px; text-align:center;" html="1 / 1" />
-
-			</layer>
-
-			<!-- PANEL CONTENIDO — derecha 56% -->
-			<layer name="info_panel" type="container" align="right" x="0" y="0" width="56%" height="100%" bgalpha="0">
-
-				<layer name="modal_label" type="text" align="topleft" x="40" y="38" autoheight="true" css="color:#7EC86A; font-family:Georgia,'Times New Roman',serif; font-size:11px; letter-spacing:3.5px;" html="PLANTA DEL BOSQUE" />
-
-				<layer name="modal_title" type="text" align="topleft" x="40" y="62" width="82%" autoheight="true" wordwrap="true" css="color:#E8F5E2; font-family:Georgia,'Times New Roman',serif; font-size:28px; font-weight:bold; line-height:36px;" html="Título" />
-
-				<layer name="modal_divider" type="container" align="topleft" x="40" y="150" width="48" height="2" bgcolor="0x7EC86A" bgalpha="0.65" bgroundedge="1" />
-
-				<layer name="modal_desc" type="text" align="topleft" x="40" y="168" width="80%" autoheight="true" wordwrap="true" css="color:#B8D4B0; font-family:Georgia,'Times New Roman',serif; font-size:15px; line-height:26px;" html="" />
-
-				<layer name="modal_hint" type="text" align="bottomleft" x="40" y="28" autoheight="true" css="color:#4A6E42; font-family:Georgia,serif; font-size:11px; letter-spacing:1px;" html="Toca fuera para cerrar" />
-
-			</layer>
-
-			<layer name="modal_close" type="text" html="&#10005;" align="topright" x="16" y="16" width="34" height="34" bgcolor="0x7EC86A" bgalpha="0.18" border="true" bordercolor="0x7EC86A" borderalpha="0.35" bgroundedge="17" css="color:#A8D898; font-size:17px; font-weight:bold; text-align:center;" cursor="pointer" onover="tween(scale,1.12,0.14,easeOutBack); tween(bgalpha,0.38,0.14);" onout="tween(scale,1.0,0.14,easeInOut); tween(bgalpha,0.18,0.14);" onclick="close_planta();" />
-
-		</layer>
-
-	</layer>
-
 
 	<!-- ═══════════════════════════════════════════════════════════
 	     ESCENAS 
 	═══════════════════════════════════════════════════════════ -->
-
 
 	<!-- ══ ESCENA 01 ══ -->
 	<scene name="scene_Bosquecito-01" title="Bosquecito-01" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/Bosquecito-01.tiles/thumb.jpg" lat="18.48761111" lng="-69.96405556" alt="14.00" heading="0.0">
@@ -238,14 +92,7 @@
 		<hotspot name="spot_nav_3" style="pisada" url="recursos/pisada.png" onloaded="" ath="-71.94615062482404" atv="12.09415817743351" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04, null,MERGE,BLEND(0.5));" />
 
 		<!-- PLANTA 1 — Oreja de Elefante (3 fotos) -->
-		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.20538047991957" atv="8.10578772554134" scale="0.15000000000000" depth="900" onclick="show_planta(
-				'Oreja de Elefante',
-				'Planta tropical de gran porte reconocida por sus enormes hojas con forma de corazón. Prefiere ambientes húmedos y sombríos, y es ampliamente utilizada como ornamental en jardines tropicales y espacios verdes.',
-				3,
-				'panos/Plantas/oreja-de-elefante-1.JPG',
-				'panos/Plantas/oreja-de-elefante-2.jpg',
-				'panos/Plantas/oreja-de-elefante-3.jpg'
-			);" />
+		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.20538047991957" atv="8.10578772554134" scale="0.15000000000000" depth="900" onclick="" />
 
 	</scene>
 
@@ -324,24 +171,10 @@
 		<hotspot name="spot_nav_5" style="pisada" url="recursos/pisada.png" onloaded="" ath="109.74309858972711" atv="13.43430756805343" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10, null,MERGE,BLEND(0.5));" />
 
 		<!-- PLANTA 2 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta2_hotspot" style="info_planta" url="recursos/lupa.png" ath="76.91106922084793" atv="12.19733301675450" scale="0.08500000000000" depth="900" onclick="show_planta(
-				'Planta Arquitectónica 02',
-				'Esta planta incluye espacios administrativos y circulación principal del segundo nivel.',
-				1,
-				'panos/Planta-02.tiles/preview.jpg',
-				'',
-				''
-			);" />
+		<hotspot name="planta2_hotspot" style="info_planta" url="recursos/lupa.png" ath="76.91106922084793" atv="12.19733301675450" scale="0.08500000000000" depth="900" onclick="" />
 
 		<!-- PLANTA 3 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png" ath="144.56725044663420" atv="-0.73954589520294" scale="0.09500000000000" depth="900" onclick="show_planta(
-				'Planta Arquitectónica 03',
-				'Área de integración social y espacios abiertos para actividades múltiples.',
-				1,
-				'panos/Planta-03.tiles/preview.jpg',
-				'',
-				''
-			);" />
+		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png" ath="144.56725044663420" atv="-0.73954589520294" scale="0.09500000000000" depth="900" onclick="" />
 
 	</scene>
 
@@ -456,14 +289,7 @@
 		<hotspot name="spot_nav_2" style="pisada" url="recursos/pisada.png" onloaded="" ath="-123.70809473880163" atv="0.25330352844481" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07, null,MERGE,BLEND(0.5)); lookat(-89, 0, 120);" />
 
 		<!-- PLANTA 4 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta4_hotspot" style="pisada" ath="-105" atv="8" depth="1400" onclick="show_planta(
-				'Planta Arquitectónica 04',
-				'Zona técnica y distribución estructural del último nivel del proyecto.',
-				1,
-				'panos/Planta-04.tiles/preview.jpg',
-				'',
-				''
-			);" />
+		<hotspot name="planta4_hotspot" style="info_planta" url="recursos/lupa.png" ath="-105" atv="8" depth="1400" onclick="" />
 
 	</scene>
 
