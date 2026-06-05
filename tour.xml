@@ -18,71 +18,6 @@
 
 	</layer>
 
-
-	<!-- ═══════════════════════════════════════
-	     POPUP PLANTA
-	═══════════════════════════════════════ -->
-
-	<layer name="popup_planta" type="container" visible="false" keep="true" width="85%" height="80%" align="center" bgcolor="0xFFFFFF" bgalpha="0.98" roundedge="20" shadow="0.02 0.02 0.2 0x000000 0.6" zorder="99999" handcursor="false">
-
-		<layer name="foto_planta" url="" align="left" x="30" y="30" width="40%" height="90%" keep="true" scalechildren="true" handcursor="false" />
-
-		<layer name="titulo_planta" type="text" html="" align="lefttop" x="45%" y="40" width="50%" css="color:#1f4d1f;font-size:34px;font-weight:bold;" wordwrap="true" />
-
-		<layer name="descripcion_planta" type="text" html="" align="lefttop" x="45%" y="110" width="50%" height="70%" css="color:#333;font-size:18px;" wordwrap="true" />
-
-		<layer name="btn_next" type="text" html="▶" align="rightbottom" x="20" y="20" css="font-size:26px;color:#000;" onclick="siguienteFotoPlanta();" />
-
-		<layer name="cerrar_planta" type="text" html="✕" align="righttop" x="20" y="10" css="font-size:32px;color:#000;cursor:pointer;" onclick="set(layer[popup_planta].visible,false);" />
-
-	</layer>
-
-	<action name="init_planta">
-		set(global.planta_fotos_index, 0);
-	</action>
-
-	<action name="mostrarPlanta">
-
-		set(layer[popup_planta].visible, true);
-	
-		set(layer[titulo_planta].html, %1);
-		set(layer[descripcion_planta].html, %2);
-	
-		set(global.planta_fotos, %3);
-		set(global.planta_fotos_index, 0);
-	
-		txtsplit(%3, '|', fotos);
-		set(global.planta_fotos, %3);
-		set(global.planta_fotos_index, 0);
-
-		if(fotos.count GT 0,
-			set(layer[foto_planta].url, get(fotos.0));
-		);
-	
-	</action>
-
-	<action name="fotoPlantaActualizar">
-
-		txtsplit(global.planta_fotos, '|', fotos);
-		set(layer[foto_planta].url, get(fotos.get(global.planta_fotos_index)));
-	
-	</action>
-
-	<action name="siguienteFotoPlanta">
-
-		txtsplit(global.planta_fotos, '|', fotos);
-
-		inc(global.planta_fotos_index);
-
-		if(global.planta_fotos_index GE fotos.count,
-			set(global.planta_fotos_index, 0);
-		);
-
-		set(layer[foto_planta].url, get(fotos.get(global.planta_fotos_index)));
-	
-	</action>
-
-
 	<!-- ═══════════════════════════════════════
 	     ACCIONES DE LA INTRO
 	═══════════════════════════════════════ -->
@@ -156,11 +91,7 @@
 		<hotspot name="spot_nav_3" style="pisada" url="recursos/pisada.png" onloaded="" ath="-71.94615062482404" atv="12.09415817743351" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04, null,MERGE,BLEND(0.5));" />
 
 		<!-- PLANTA 1 — Oreja de Elefante (3 fotos) -->
-		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.205" atv="8.105" scale="0.15" depth="900" onclick="mostrarPlanta(
-            'Oreja de Elefante',
-            'Planta tropical de grandes hojas en forma de corazón.',
-            '/panos/Plantas/oreja-de-elefante-1.JPG|plantas/oreja2.jpg|plantas/oreja3.jpg'
-         );" />
+		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.205" atv="8.105" scale="0.15" depth="900" onclick="" />
 
 	</scene>
 
