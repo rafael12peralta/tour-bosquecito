@@ -46,6 +46,55 @@
 		set(hotspot[spot_nav_2].visible, true);
 	</action>
 
+	<!-- ═══════════════════════════════════════
+     VISOR DE PLANTAS VR
+═══════════════════════════════════════ -->
+
+	<hotspot name="planta_imagen" type="image" url="" ath="0" atv="0" depth="1800" width="1800" height="1000" visible="false" alpha="0" distorted="true" zorder="999" />
+
+	<!-- ═══════════════════════════════════════
+     ACCIONES PLANTAS
+═══════════════════════════════════════ -->
+
+	<action name="mostrarPlanta">
+
+    set(global.planta_img1, %1);
+    set(global.planta_img2, %2);
+
+    set(global.planta_estado, 1);
+
+    set(hotspot[planta_imagen].url, get(global.planta_img1));
+
+    set(hotspot[planta_imagen].visible, true);
+
+    set(hotspot[planta_imagen].onclick, siguientePlanta(););
+
+    tween(hotspot[planta_imagen].alpha, 1, 0.4);
+
+	</action>
+
+	<action name="siguientePlanta">
+
+    if(global.planta_estado == 1,
+
+        set(global.planta_estado, 2);
+
+        set(hotspot[planta_imagen].url,
+            get(global.planta_img2)
+        );
+
+    ,
+
+        tween(hotspot[planta_imagen].alpha, 0, 0.4);
+
+        delayedcall(0.45,
+            set(hotspot[planta_imagen].visible, false);
+        );
+
+    );
+
+	</action>
+
 
 	<!-- ═══════════════════════════════════════════════════════════
 	     ESCENAS 
@@ -90,8 +139,8 @@
 		<hotspot name="spot_nav_2" style="pisada" url="recursos/pisada.png" onloaded="" ath="144.03991547587236" atv="3.35636426602171" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-03, null,MERGE,BLEND(0.5)); lookat(114, 0, 120);" />
 		<hotspot name="spot_nav_3" style="pisada" url="recursos/pisada.png" onloaded="" ath="-71.94615062482404" atv="12.09415817743351" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04, null,MERGE,BLEND(0.5));" />
 
-		<!-- PLANTA 1 — Oreja de Elefante (3 fotos) -->
-		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.205" atv="8.105" scale="0.15" depth="900" onclick="" />
+		<!-- PLANTA 1 — Oreja de Elefante (2 fotos) -->
+		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.205" atv="8.105" scale="0.15" depth="900" onclick="mostrarPlanta();" />
 
 	</scene>
 
