@@ -47,52 +47,82 @@
 	</action>
 
 	<!-- ═══════════════════════════════════════
-     VISOR DE PLANTAS VR
-═══════════════════════════════════════ -->
+     VISOR DE PLANTAS — layer 2D
+	═══════════════════════════════════════ -->
 
-	<hotspot name="planta_imagen" type="image" url="" ath="0" atv="0" depth="1800" width="1800" height="1000" visible="false" alpha="0" distorted="true" zorder="999" />
+	<layer name="planta_overlay" keep="true" type="container" width="100%" height="100%" bgcolor="0x000000" bgalpha="0.75" visible="false" alpha="0" zorder="9000" bgcapture="true" onclick="cerrarPlanta();" />
+
+	<layer name="planta_img_layer" keep="true" type="image" url="" align="center" width="80%" height="80%" scalemode="fit" visible="false" alpha="0" zorder="9001" onclick="cerrarPlanta();" />
 
 	<!-- ═══════════════════════════════════════
-     ACCIONES PLANTAS
-═══════════════════════════════════════ -->
+	ACCIONES PLANTAS
+	═══════════════════════════════════════ -->
 
-	<action name="mostrarPlanta">
+	<action name="mostrarPlanta1">
+		set(global.planta_img1, recursos/plantas/oreja-elefante1.jpg);
+		set(global.planta_img2, recursos/plantas/oreja-elefante2.jpg);
+		set(global.planta_estado, 1);
+		set(layer[planta_img_layer].url, get(global.planta_img1));
+		set(layer[planta_overlay].visible, true);
+		set(layer[planta_img_layer].visible, true);
+		tween(layer[planta_overlay].alpha, 1, 0.3);
+		tween(layer[planta_img_layer].alpha, 1, 0.3);
+		set(layer[planta_img_layer].onclick, siguientePlanta(););
+	</action>
 
-    set(global.planta_img1, %1);
-    set(global.planta_img2, %2);
+	<action name="mostrarPlanta2">
+		set(global.planta_img1, recursos/plantas/dianela1.jpg);
+		set(global.planta_img2, recursos/plantas/dianela2.jpg);
+		set(global.planta_estado, 1);
+		set(layer[planta_img_layer].url, get(global.planta_img1));
+		set(layer[planta_overlay].visible, true);
+		set(layer[planta_img_layer].visible, true);
+		tween(layer[planta_overlay].alpha, 1, 0.3);
+		tween(layer[planta_img_layer].alpha, 1, 0.3);
+		set(layer[planta_img_layer].onclick, siguientePlanta(););
+	</action>
 
-    set(global.planta_estado, 1);
+	<action name="mostrarPlanta3">
+		set(global.planta_img1, recursos/plantas/guano-costa1.jpg);
+		set(global.planta_img2, recursos/plantas/guano-costa2.jpg);
+		set(global.planta_estado, 1);
+		set(layer[planta_img_layer].url, get(global.planta_img1));
+		set(layer[planta_overlay].visible, true);
+		set(layer[planta_img_layer].visible, true);
+		tween(layer[planta_overlay].alpha, 1, 0.3);
+		tween(layer[planta_img_layer].alpha, 1, 0.3);
+		set(layer[planta_img_layer].onclick, siguientePlanta(););
+	</action>
 
-    set(hotspot[planta_imagen].url, get(global.planta_img1));
-
-    set(hotspot[planta_imagen].visible, true);
-
-    set(hotspot[planta_imagen].onclick, siguientePlanta(););
-
-    tween(hotspot[planta_imagen].alpha, 1, 0.4);
-
+	<action name="mostrarPlanta4">
+		set(global.planta_img1, recursos/plantas/giyer-rojo1.jpg);
+		set(global.planta_img2, recursos/plantas/giyer-rojo2.jpg);
+		set(global.planta_estado, 1);
+		set(layer[planta_img_layer].url, get(global.planta_img1));
+		set(layer[planta_overlay].visible, true);
+		set(layer[planta_img_layer].visible, true);
+		tween(layer[planta_overlay].alpha, 1, 0.3);
+		tween(layer[planta_img_layer].alpha, 1, 0.3);
+		set(layer[planta_img_layer].onclick, siguientePlanta(););
 	</action>
 
 	<action name="siguientePlanta">
+		if(global.planta_estado == 1,
+			set(global.planta_estado, 2);
+			set(layer[planta_img_layer].url, get(global.planta_img2));
+			set(layer[planta_img_layer].onclick, cerrarPlanta(););
+		,
+			cerrarPlanta();
+		);
+	</action>
 
-    if(global.planta_estado == 1,
-
-        set(global.planta_estado, 2);
-
-        set(hotspot[planta_imagen].url,
-            get(global.planta_img2)
-        );
-
-    ,
-
-        tween(hotspot[planta_imagen].alpha, 0, 0.4);
-
-        delayedcall(0.45,
-            set(hotspot[planta_imagen].visible, false);
-        );
-
-    );
-
+	<action name="cerrarPlanta">
+		tween(layer[planta_overlay].alpha, 0, 0.3);
+		tween(layer[planta_img_layer].alpha, 0, 0.3);
+		delayedcall(0.35,
+			set(layer[planta_overlay].visible, false);
+			set(layer[planta_img_layer].visible, false);
+		);
 	</action>
 
 
@@ -140,7 +170,7 @@
 		<hotspot name="spot_nav_3" style="pisada" url="recursos/pisada.png" onloaded="" ath="-71.94615062482404" atv="12.09415817743351" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04, null,MERGE,BLEND(0.5));" />
 
 		<!-- PLANTA 1 — Oreja de Elefante (2 fotos) -->
-		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.205" atv="8.105" scale="0.15" depth="900" onclick="mostrarPlanta();" />
+		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.205" atv="8.105" scale="0.15" depth="900" onclick="mostrarPlanta1();" />
 
 	</scene>
 
@@ -197,6 +227,12 @@
 		<hotspot name="spot_nav_1" style="pisada" url="recursos/pisada.png" onloaded="" ath="-170.69634032027031" atv="13.22647632753968" scale="0.70500000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-04, null,MERGE,BLEND(0.5)); lookat(-180, 0, 120);" />
 		<hotspot name="spot_nav_2" style="pisada" url="recursos/pisada.png" onloaded="" ath="93.96771601364730" atv="8.34099448510283" scale="0.71500000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06, null,MERGE,BLEND(0.5)); lookat(-10, 0, 120);" />
 
+		<!-- PLANTA 2 — Dianela (2 fotos) -->
+		<hotspot name="planta2_hotspot" style="info_planta" url="recursos/lupa.png" ath="-129.46054113110202" atv="32.29778561583694" scale="0.15" depth="900" onclick="mostrarPlanta2();" />
+
+		<!-- PLANTA 3 — Guano Costa (2 fotos) -->
+		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png" ath="-59.19743065373223" atv="12.20462984864837" scale="0.15" depth="900" onclick="mostrarPlanta3();" />
+
 	</scene>
 
 
@@ -217,12 +253,6 @@
 		<hotspot name="spot_nav_3" style="pisada" url="recursos/pisada.png" onloaded="" ath="-75.77348347519887" atv="12.11382407209235" scale="0.67500000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-08, null,MERGE,BLEND(0.5)); lookat(180, 0, 120);" />
 		<hotspot name="spot_nav_4" style="pisada" url="recursos/pisada.png" onloaded="" ath="52.96200194185741" atv="10.40239861304120" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09, null,MERGE,BLEND(0.5));" />
 		<hotspot name="spot_nav_5" style="pisada" url="recursos/pisada.png" onloaded="" ath="109.74309858972711" atv="13.43430756805343" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-10, null,MERGE,BLEND(0.5));" />
-
-		<!-- PLANTA 2 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta2_hotspot" style="info_planta" url="recursos/lupa.png" ath="76.91106922084793" atv="12.19733301675450" scale="0.08500000000000" depth="900" onclick="" />
-
-		<!-- PLANTA 3 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png" ath="144.56725044663420" atv="-0.73954589520294" scale="0.09500000000000" depth="900" onclick="" />
 
 	</scene>
 
@@ -299,6 +329,9 @@
 		<hotspot name="spot_nav_1" style="pisada" url="recursos/pisada.png" onloaded="" ath="-175.80071768067731" atv="10.49667265036384" scale="0.67000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-06, null,MERGE,BLEND(0.5)); lookat(-70, 0, 120);" />
 		<hotspot name="spot_nav_2" style="pisada" url="recursos/pisada.png" onloaded="" ath="-4.89696573591658" atv="16.21894217002534" scale="0.64000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-11, null,MERGE,BLEND(0.5));" />
 
+		<!-- PLANTA 4 — Giyer Rojo (2 fotos) -->
+		<hotspot name="planta4_hotspot" style="info_planta" url="recursos/lupa.png" ath="123.18102931072312" atv="11.88818898623889" scale="0.15" depth="900" onclick="mostrarPlanta4();" />
+
 	</scene>
 
 
@@ -335,9 +368,6 @@
 
 		<hotspot name="spot_nav_1" style="pisada" url="recursos/pisada.png" onloaded="" ath="-149.55801502333384" atv="5.19665628690654" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-09, null,MERGE,BLEND(0.5)); lookat(-180, 0, 120);" />
 		<hotspot name="spot_nav_2" style="pisada" url="recursos/pisada.png" onloaded="" ath="-123.70809473880163" atv="0.25330352844481" scale="0.50000000000000" depth="900" prealign="true" onclick="loadscene(scene_Bosquecito-07, null,MERGE,BLEND(0.5)); lookat(-89, 0, 120);" />
-
-		<!-- PLANTA 4 — TODO: nombre, descripción y fotos reales, ajusta ath/atv -->
-		<hotspot name="planta4_hotspot" style="info_planta" url="recursos/lupa.png" ath="-105" atv="8" depth="1400" onclick="" />
 
 	</scene>
 
