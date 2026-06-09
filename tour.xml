@@ -484,6 +484,12 @@
 			ath="132.26910978475973" atv="12.87789053347745" scale="0.50000000000000" depth="900"
 			prealign="true" onclick="loadscene(scene_Bosquecito-13, null,MERGE,BLEND(0.5));" />
 
+
+		<!-- PLANTA 3 — Guano Costa (2 fotos) -->
+		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png"
+			ath="102.86842547865675" atv="5.16032636098710" scale="0.15" depth="900"
+			onclick="mostrarPlanta3();" />
+
 	</scene>
 
 
