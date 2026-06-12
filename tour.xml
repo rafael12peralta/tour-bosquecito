@@ -73,21 +73,7 @@
      VISOR DE PLANTAS — hotspots 3D
 	═══════════════════════════════════════ -->
 
-	<!-- Overlay oscuro (hotspot esférico que cubre todo) -->
-	<hotspot name="planta_overlay"
-		keep="true"
-		type="image"
-		url="recursos/overlay_negro.png"
-		ath="0" atv="0"
-		depth="800"
-		distorted="true"
-		width="4000" height="2000"
-		visible="false"
-		alpha="0"
-		zorder="9000"
-		onclick="cerrarPlanta();" />
-
-	<!-- Imagen de la planta (hotspot 3D centrado) -->
+	<!-- Imagen de la planta -->
 	<hotspot name="planta_img_hotspot"
 		keep="true"
 		type="image"
@@ -111,10 +97,8 @@
 		set(hotspot[planta_img_hotspot].url, get(global.planta_img1));
 		set(hotspot[planta_img_hotspot].ath, get(hotspot[get(name)].ath));
 		set(hotspot[planta_img_hotspot].atv, get(hotspot[get(name)].atv));
-		set(hotspot[planta_overlay].visible, true);
 		set(hotspot[planta_img_hotspot].visible, true);
 
-		tween(hotspot[planta_overlay].alpha, 0.75, 0.3);
 		tween(hotspot[planta_img_hotspot].alpha, 1, 0.3);
 	</action>
 
@@ -128,10 +112,8 @@
 	</action>
 
 	<action name="cerrarPlanta">
-		tween(hotspot[planta_overlay].alpha, 0, 0.3);
 		tween(hotspot[planta_img_hotspot].alpha, 0, 0.3);
 		delayedcall(0.35,
-		set(hotspot[planta_overlay].visible, false);
 		set(hotspot[planta_img_hotspot].visible, false);
 		);
 	</action>
