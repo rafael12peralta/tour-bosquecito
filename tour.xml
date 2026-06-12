@@ -47,7 +47,6 @@
 	═══════════════════════════════════════ -->
 
 	<action name="on_intro_loaded">
-		set(hotspot[spot_nav_1].visible, false);
 		delayedcall(2,
 		tween(layer[intro_logo].alpha, 1, 1.2);
 		tween(layer[intro_guide].alpha, 1, 1.2);
@@ -71,85 +70,67 @@
 	</action>
 
 	<!-- ═══════════════════════════════════════
-     VISOR DE PLANTAS — layer 2D
+     VISOR DE PLANTAS — hotspots 3D
 	═══════════════════════════════════════ -->
 
-	<layer name="planta_overlay" keep="true" type="container" width="100%" height="100%"
-		bgcolor="0x000000" bgalpha="0.75" visible="false" alpha="0" zorder="9000" bgcapture="true"
+	<!-- Overlay oscuro (hotspot esférico que cubre todo) -->
+	<hotspot name="planta_overlay"
+		keep="true"
+		type="image"
+		url="recursos/overlay_negro.png"
+		ath="0" atv="0"
+		depth="800"
+		distorted="true"
+		width="4000" height="2000"
+		visible="false"
+		alpha="0"
+		zorder="9000"
 		onclick="cerrarPlanta();" />
 
-	<layer name="planta_img_layer" keep="true" type="image" url="" align="center" width="80%"
-		height="80%" scalemode="fit" visible="false" alpha="0" zorder="9001"
-		onclick="cerrarPlanta();" />
+	<!-- Imagen de la planta (hotspot 3D centrado) -->
+	<hotspot name="planta_img_hotspot"
+		keep="true"
+		type="image"
+		url=""
+		ath="0" atv="0"
+		depth="900"
+		rx="0" ry="0" rz="0"
+		distorted="true"
+		width="1200" height="900"
+		visible="false"
+		alpha="0"
+		zorder="9001"
+		onclick="siguientePlanta();" />
 
-	<!-- ═══════════════════════════════════════
-	ACCIONES PLANTAS
-	═══════════════════════════════════════ -->
+	<action name="mostrarPlanta">
+		set(global.planta_img1, %1);
+		set(global.planta_img2, %2);
 
-	<action name="mostrarPlanta1">
-		set(global.planta_img1, recursos/plantas/oreja-elefante1.jpg);
-		set(global.planta_img2, recursos/plantas/oreja-elefante2.jpg);
 		set(global.planta_estado, 1);
-		set(layer[planta_img_layer].url, get(global.planta_img1));
-		set(layer[planta_overlay].visible, true);
-		set(layer[planta_img_layer].visible, true);
-		tween(layer[planta_overlay].alpha, 1, 0.3);
-		tween(layer[planta_img_layer].alpha, 1, 0.3);
-		set(layer[planta_img_layer].onclick, siguientePlanta(););
-	</action>
 
-	<action name="mostrarPlanta2">
-		set(global.planta_img1, recursos/plantas/dianela1.jpg);
-		set(global.planta_img2, recursos/plantas/dianela2.jpg);
-		set(global.planta_estado, 1);
-		set(layer[planta_img_layer].url, get(global.planta_img1));
-		set(layer[planta_overlay].visible, true);
-		set(layer[planta_img_layer].visible, true);
-		tween(layer[planta_overlay].alpha, 1, 0.3);
-		tween(layer[planta_img_layer].alpha, 1, 0.3);
-		set(layer[planta_img_layer].onclick, siguientePlanta(););
-	</action>
+		set(hotspot[planta_img_hotspot].url, get(global.planta_img1));
+		set(hotspot[planta_overlay].visible, true);
+		set(hotspot[planta_img_hotspot].visible, true);
 
-	<action name="mostrarPlanta3">
-		set(global.planta_img1, recursos/plantas/guano-costa1.jpg);
-		set(global.planta_img2, recursos/plantas/guano-costa2.jpg);
-		set(global.planta_estado, 1);
-		set(layer[planta_img_layer].url, get(global.planta_img1));
-		set(layer[planta_overlay].visible, true);
-		set(layer[planta_img_layer].visible, true);
-		tween(layer[planta_overlay].alpha, 1, 0.3);
-		tween(layer[planta_img_layer].alpha, 1, 0.3);
-		set(layer[planta_img_layer].onclick, siguientePlanta(););
-	</action>
-
-	<action name="mostrarPlanta4">
-		set(global.planta_img1, recursos/plantas/giyer-rojo1.jpg);
-		set(global.planta_img2, recursos/plantas/giyer-rojo2.jpg);
-		set(global.planta_estado, 1);
-		set(layer[planta_img_layer].url, get(global.planta_img1));
-		set(layer[planta_overlay].visible, true);
-		set(layer[planta_img_layer].visible, true);
-		tween(layer[planta_overlay].alpha, 1, 0.3);
-		tween(layer[planta_img_layer].alpha, 1, 0.3);
-		set(layer[planta_img_layer].onclick, siguientePlanta(););
+		tween(hotspot[planta_overlay].alpha, 0.75, 0.3);
+		tween(hotspot[planta_img_hotspot].alpha, 1, 0.3);
 	</action>
 
 	<action name="siguientePlanta">
 		if(global.planta_estado == 1,
 		set(global.planta_estado, 2);
-		set(layer[planta_img_layer].url, get(global.planta_img2));
-		set(layer[planta_img_layer].onclick, cerrarPlanta(););
+		set(hotspot[planta_img_hotspot].url, get(global.planta_img2));
 		,
 		cerrarPlanta();
 		);
 	</action>
 
 	<action name="cerrarPlanta">
-		tween(layer[planta_overlay].alpha, 0, 0.3);
-		tween(layer[planta_img_layer].alpha, 0, 0.3);
+		tween(hotspot[planta_overlay].alpha, 0, 0.3);
+		tween(hotspot[planta_img_hotspot].alpha, 0, 0.3);
 		delayedcall(0.35,
-		set(layer[planta_overlay].visible, false);
-		set(layer[planta_img_layer].visible, false);
+		set(hotspot[planta_overlay].visible, false);
+		set(hotspot[planta_img_hotspot].visible, false);
 		);
 	</action>
 
@@ -288,9 +269,14 @@
 			ath="-71.94615062482404" atv="12.09415817743351" scale="0.50000000000000" depth="900"
 			prealign="true" onclick="loadscene(scene_Bosquecito-04, null,MERGE,BLEND(0.5));" />
 
+
 		<!-- PLANTA 1 — Oreja de Elefante (2 fotos) -->
 		<hotspot name="planta1_hotspot" style="info_planta" url="recursos/lupa.png" ath="-166.205"
-			atv="8.105" scale="0.15" depth="900" onclick="mostrarPlanta1();" />
+			atv="8.105" scale="0.15" depth="900"
+			onclick="mostrarPlanta(
+    		recursos/plantas/oreja-elefante1.jpg,
+    		recursos/plantas/oreja-elefante2.jpg
+		);" />
 
 	</scene>
 
@@ -382,12 +368,18 @@
 		<!-- PLANTA 2 — Dianela (2 fotos) -->
 		<hotspot name="planta2_hotspot" style="info_planta" url="recursos/lupa.png"
 			ath="-129.46054113110202" atv="32.29778561583694" scale="0.15" depth="900"
-			onclick="mostrarPlanta2();" />
+			onclick="mostrarPlanta(
+			recursos/plantas/dianela1.jpg,
+			recursos/plantas/dianela2.jpg
+			);" />
 
 		<!-- PLANTA 3 — Guano Costa (2 fotos) -->
 		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png"
 			ath="-59.19743065373223" atv="12.20462984864837" scale="0.15" depth="900"
-			onclick="mostrarPlanta3();" />
+			onclick="mostrarPlanta(
+			recursos/plantas/guano-costa1.jpg,
+			recursos/plantas/guano-costa2.jpg
+			);" />
 
 	</scene>
 
@@ -485,10 +477,13 @@
 			prealign="true" onclick="loadscene(scene_Bosquecito-13, null,MERGE,BLEND(0.5));" />
 
 
-		<!-- PLANTA 3 — Guano Costa (2 fotos) -->
+		<!-- PLANTA 4 — Guano Costa (2 fotos) -->
 		<hotspot name="planta3_hotspot" style="info_planta" url="recursos/lupa.png"
 			ath="102.86842547865675" atv="5.16032636098710" scale="0.15" depth="900"
-			onclick="mostrarPlanta3();" />
+			onclick="mostrarPlanta(
+			recursos/plantas/guano-costa1.jpg,
+			recursos/plantas/guano-costa2.jpg
+			);" />
 
 	</scene>
 
@@ -555,7 +550,10 @@
 		<!-- PLANTA 4 — Giyer Rojo (2 fotos) -->
 		<hotspot name="planta4_hotspot" style="info_planta" url="recursos/lupa.png"
 			ath="123.18102931072312" atv="11.88818898623889" scale="0.15" depth="900"
-			onclick="mostrarPlanta4();" />
+			onclick="mostrarPlanta(
+			recursos/plantas/giyer-rojo1.jpg,
+			recursos/plantas/giyer-rojo2.jpg
+			);" />
 
 	</scene>
 
