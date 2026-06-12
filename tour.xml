@@ -109,6 +109,8 @@
 		set(global.planta_estado, 1);
 
 		set(hotspot[planta_img_hotspot].url, get(global.planta_img1));
+		set(hotspot[planta_img_hotspot].ath, get(hotspot[get(name)].ath));
+		set(hotspot[planta_img_hotspot].atv, get(hotspot[get(name)].atv));
 		set(hotspot[planta_overlay].visible, true);
 		set(hotspot[planta_img_hotspot].visible, true);
 
